@@ -1,0 +1,160 @@
+<!-- Updated home.html -->
+{% extends 'portfolio/base.html' %} 
+{% load static %}
+{% block title %}Home | Anzar{% endblock %}
+
+{% block content %}
+<section id="hero" class="text-center text-white">
+  <div class="container py-5">
+    {% if user and user.profile_image %}
+      <img src="{{ user.profile_image.url }}" class="rounded-circle shadow mb-4" width="200" alt="Anzar">
+    {% else %}
+      <img src="{% static 'images/default.jpg' %}" class="rounded-circle shadow mb-4" width="160" alt="Default">
+    {% endif %}
+    <h1 class="display-4 fw-bold">Hello, I'm Anzar</h1>
+    <p class="lead">Python full stack developer</p>
+    {% if cv_url %}
+  <a href="{{ cv_url }}" download class="btn btn-light btn-lg mt-3">
+    <i class="fas fa-download"></i> Download CV
+  </a>
+{% else %}
+  <p class="text-muted mt-3">CV not uploaded yet.</p>
+{% endif %}
+  </div>
+</section>
+
+<section id="about">
+  <div class="container section-box">
+    <h2>About Me</h2>
+    <p>I'm a versatile and results-oriented Python developer with a strong command of Django, REST APIs, and backend architecture. I specialize in building clean, scalable, and maintainable web solutions for clients and companies around the world. With hands-on experience in deploying full-stack applications, automating workflows, and integrating third-party services, I bring both technical skill and a freelancer’s agility to every project. I'm passionate about solving real-world problems through code and open to remote roles or freelance collaborations with global teams looking for reliable Python expertise.</p>
+
+<h3 class="mt-4">My Journey as a Developer:</h3>
+<p>
+  <strong>Driven by Curiosity and a Passion for Building</strong><br/>
+  As a developer at the start of my journey, I'm fueled by a relentless curiosity and a passion for turning innovative ideas into tangible solutions. My approach to technology isn't just about writing code; it's about asking "what if?" and "why not?" to uncover new and better ways of doing things. I thrive on the challenge of a blank slate and have a proven ability to independently manage a project from concept to completion.
+  What truly excites me is the process of deconstruction and discovery. I enjoy diving deep into the mechanics of Python, not just to understand how a library works, but to grasp the underlying principles that make it powerful. This curiosity has been the driving force behind my personal projects, where I've had the freedom to experiment, learn, and build applications that I'm proud of.
+</p>
+<p>
+  Managing my own projects has taught me more than just coding. It has instilled in me a sense of ownership and a comprehensive understanding of the development lifecycle. From the initial spark of an idea, through the challenges of debugging, and to the satisfaction of a successful deployment, I've learned to be a resourceful and resilient problem-solver.
+      <ul class="timeline">
+      {% for exp in experiences %}
+      <li>
+        <strong>{{ exp.role }}</strong> at {{ exp.company }}
+        <br><small class="text-muted">{{ exp.start }} – {{ exp.end }}</small>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section id="skills" class="bg-light">
+  <div class="container section-box text-center">
+    <h2>Skills & Tools</h2>
+    <div class="row justify-content-center mt-4">
+      <div class="col-6 col-md-2 mb-4">
+        <i class="fab fa-python fa-3x text-primary"></i>
+        <p class="mt-2">Python</p>
+      </div>
+      <div class="col-6 col-md-2 mb-4">
+        <!-- Corrected Font Awesome icon for Django -->
+        <i class="fab fa-d-and-d fa-3x text-success"></i> 
+        <p class="mt-2">Django</p>
+      </div>
+      <div class="col-6 col-md-2 mb-4">
+        <i class="fas fa-database fa-3x text-warning"></i>
+        <p class="mt-2">PostgreSQL</p>
+      </div>
+      <div class="col-6 col-md-2 mb-4">
+        <i class="fab fa-js-square fa-3x text-warning"></i>
+        <p class="mt-2">JavaScript</p>
+      </div>
+      <div class="col-6 col-md-2 mb-4">
+        <i class="fab fa-html5 fa-3x text-danger"></i>
+        <p class="mt-2">HTML5</p>
+      </div>
+      <div class="col-6 col-md-2 mb-4">
+        <i class="fab fa-css3-alt fa-3x text-info"></i>
+        <p class="mt-2">CSS3</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- === UPDATED PROJECTS SECTION            === -->
+<!-- ============================================= -->
+<section id="projects" class="bg-light">
+  <div class="container section-box">
+    <h2>Projects</h2>
+    <div class="row">
+      {% for project in projects %}
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          {% if project.image %}
+            <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+          {% endif %}
+          <div class="card-body">
+  <h5 class="card-title">{{ project.title }}</h5>
+  <p class="card-text text-muted">{{ project.description|truncatewords:20 }}</p>
+  
+  <a href="{% url 'project_detail' project.pk %}" class="btn btn-outline-primary btn-sm">Details</a>
+  
+  {% if project.github_url %}
+    <a href="{{ project.github_url }}" target="_blank" class="btn btn-dark btn-sm ms-2">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+  {% endif %}
+</div>
+
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="Reviews" class="bg-light">
+  <div class="container section-box">
+    <h2 class="text-center mb-5">What Clients Say</h2>
+    <div class="row justify-content-center">
+      {% for review in reviews %}
+      <div class="col-lg-6 mb-4 d-flex align-items-stretch">
+        <div class="review-card w-100">
+          <p class="review-text">"{{ review.text }}"</p>
+          <footer class="review-author">— {{ review.author }}</footer>
+        </div>
+      </div>
+      {% empty %}
+        <div class="col text-center">
+          <p class="text-muted">No reviews have been added yet.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+
+<section id="contact">
+  <div class="container section-box">
+    <h2 class="text-center mb-4">Contact Me</h2>
+    
+    {% if success %}
+      <div class="alert alert-success">Your message has been sent successfully!</div>
+    {% endif %}
+    
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ form.name.label_tag }} {{ form.name }}
+      </div>
+      <div class="mb-3">
+        {{ form.email.label_tag }} {{ form.email }}
+      </div>
+      <div class="mb-3">
+        {{ form.message.label_tag }} {{ form.message }}
+      </div>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

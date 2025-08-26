@@ -1,21 +1,44 @@
 # Python
 __pycache__/
 *.py[cod]
-*.sqlite3
+*.pyo
+*.pyd
+*.so
 
-# Virtual environment
+# Virtual Environment
 venv/
-env/
+.env/
+.venv/
 
 # Django
 *.log
-*.pot
-*.pyc
 db.sqlite3
 media/
+staticfiles/
 
-# VSCode
-.vscode/
-
-# Environment variables
+# Environment Variables
 *.env
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# macOS / Linux
+.DS_Store
+Thumbs.db
+
+# Pytest / Coverage
+.coverage
+htmlcov/
+*.cover
+*.coverage
+.cache/
+
+# Migrations (optional, keep if you want to track them)
+# */migrations/*.py
+# */migrations/*.pyc
+
+# Node (if using Tailwind or npm packages later)
+node_modules/

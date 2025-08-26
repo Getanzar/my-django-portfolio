@@ -5,7 +5,11 @@ from .models import ContactMessage
 
 admin.site.register(Project)
 admin.site.register(Profile)
-admin.site.register(Review)
 admin.site.register(ContactMessage)
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('author', 'created_at')
+    search_fields = ('author', 'text')
 
 # Register your models here.
